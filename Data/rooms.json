@@ -1,0 +1,181 @@
+{
+  "version": "1.0",
+  "notes": "Vertical-slice layout: one overworld hub plus a linear chain of five dungeon rooms. overworld_01 -> dungeon_01 -> dungeon_02 -> dungeon_03 -> dungeon_04 -> dungeon_05. A room is open when its locked_by room has been cleared (clear flag set); locked_by null means open from the start. Per design, dungeon_03's clear flag is the boss-route gate and locks BOTH dungeon_04 and dungeon_05 \u2014 topology is still linear, so the player physically walks 04 before 05. exits.locked reflects the initial lock state at a fresh run.",
+  "rooms": [
+    {
+      "id": "overworld_01",
+      "display_name": "Verdant Fields",
+      "room_type": "overworld",
+      "exits": [
+        {
+          "room_id": "dungeon_01",
+          "locked": false
+        }
+      ],
+      "enemies": [
+        {
+          "id": "slime",
+          "count": 2
+        }
+      ],
+      "items": [
+        {
+          "id": "heart",
+          "count": 1
+        }
+      ],
+      "locked_by": null,
+      "notes": "Safe-ish hub and tutorial space. Two wandering slimes teach attack and dodge; a heart pickup sits near the dungeon entrance. Exit leads down into the ruins (dungeon_01)."
+    },
+    {
+      "id": "dungeon_01",
+      "display_name": "Ruined Vestibule",
+      "room_type": "dungeon",
+      "exits": [
+        {
+          "room_id": "overworld_01",
+          "locked": false
+        },
+        {
+          "room_id": "dungeon_02",
+          "locked": true
+        }
+      ],
+      "enemies": [
+        {
+          "id": "slime",
+          "count": 3
+        }
+      ],
+      "items": [],
+      "locked_by": null,
+      "notes": "First dungeon room, slime-only so the player learns room-clear gates. Clearing this room unlocks the door to dungeon_02."
+    },
+    {
+      "id": "dungeon_02",
+      "display_name": "Bone Gallery",
+      "room_type": "dungeon",
+      "exits": [
+        {
+          "room_id": "dungeon_01",
+          "locked": false
+        },
+        {
+          "room_id": "dungeon_03",
+          "locked": true
+        }
+      ],
+      "enemies": [
+        {
+          "id": "slime",
+          "count": 2
+        },
+        {
+          "id": "skeleton",
+          "count": 1
+        }
+      ],
+      "items": [
+        {
+          "id": "heart",
+          "count": 1
+        }
+      ],
+      "locked_by": "dungeon_01",
+      "notes": "Introduces skeletons alongside slimes \u2014 the first dodge-check. Heart pickup rewards the clear. Clearing unlocks dungeon_03."
+    },
+    {
+      "id": "dungeon_03",
+      "display_name": "Guardian's Approach",
+      "room_type": "dungeon",
+      "exits": [
+        {
+          "room_id": "dungeon_02",
+          "locked": false
+        },
+        {
+          "room_id": "dungeon_04",
+          "locked": true
+        }
+      ],
+      "enemies": [
+        {
+          "id": "skeleton",
+          "count": 2
+        },
+        {
+          "id": "slime",
+          "count": 2
+        }
+      ],
+      "items": [
+        {
+          "id": "key",
+          "count": 1,
+          "item_id": "temple_key"
+        }
+      ],
+      "locked_by": "dungeon_02",
+      "notes": "Midpoint pivot room. Its clear flag (dungeon_03_cleared) is the boss route gate: it unlocks BOTH dungeon_04 and dungeon_05. Also holds temple_key, which opens the boss arena door inside dungeon_05 \u2014 so the boss route needs the clear flag AND the key."
+    },
+    {
+      "id": "dungeon_04",
+      "display_name": "Hall of Relics",
+      "room_type": "dungeon",
+      "exits": [
+        {
+          "room_id": "dungeon_03",
+          "locked": false
+        },
+        {
+          "room_id": "dungeon_05",
+          "locked": true
+        }
+      ],
+      "enemies": [
+        {
+          "id": "skeleton",
+          "count": 2
+        },
+        {
+          "id": "slime",
+          "count": 2
+        }
+      ],
+      "items": [
+        {
+          "id": "heart",
+          "count": 1
+        }
+      ],
+      "locked_by": "dungeon_03",
+      "notes": "Hard fight before the boss \u2014 mixed skeleton/slime wave as the last combat check. Heart pickup as the pre-boss breather. Its exit into dungeon_05 is locked by the same dungeon_03 clear flag (boss route), not by dungeon_04's own clear."
+    },
+    {
+      "id": "dungeon_05",
+      "display_name": "Throne of the Crown Guardian",
+      "room_type": "boss",
+      "exits": [
+        {
+          "room_id": "dungeon_04",
+          "locked": false
+        }
+      ],
+      "enemies": [
+        {
+          "id": "boss_guardian",
+          "count": 1
+        }
+      ],
+      "items": [
+        {
+          "id": "crown_fragment",
+          "count": 1,
+          "condition": "boss_defeated"
+        }
+      ],
+      "locked_by": "dungeon_03",
+      "notes": "Final boss room \u2014 holds the boss_guardian and the crown_fragment win item. The room itself is gated by dungeon_03's clear flag (boss route); the boss arena door additionally requires temple_key from dungeon_03. The crown_fragment only becomes collectable after boss death (condition boss_defeated), which triggers the Victory state per progression.json."
+    }
+  ]
+}

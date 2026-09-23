@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "notes": "Player stats for the vertical slice. move_speed_mps, dodge_burst_mps and dodge_cooldown_s mirror the private consts in Scripts/World/PlayerController.cs (MoveSpeed 5.0, DodgeBurstSpeed 12.0, DodgeCooldownSeconds 0.7) and dodge_duration_s mirrors DodgeDurationSeconds (0.15) — if the code consts change, update these to match (code is authoritative at runtime). sword_damage 1 matches SwordHitbox.SwingDamage. hp_max 6 with hp_per_heart 1 = 6 heart containers; enemy damage 1 removes one heart, boss damage 2 removes two. Dodge gives ~1.8 m of burst travel (12.0 m/s * 0.15 s) on a 0.7 s cooldown — enough to clear a skeleton charge. Player outspeeds every enemy (fastest non-boss is skeleton at 3.5 m/s).",
+  "id": "player",
+  "name": "Verdant Hero",
+  "hp_max": 6,
+  "hp_per_heart": 1,
+  "hearts_max": 6,
+  "sword_damage": 1,
+  "move_speed_mps": 5.0,
+  "dodge_burst_mps": 12.0,
+  "dodge_cooldown_s": 0.7,
+  "dodge_duration_s": 0.15
+}

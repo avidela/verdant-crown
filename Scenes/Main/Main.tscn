@@ -1,0 +1,32 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Core/RoomLoader.cs" id="1_room_loader"]
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/Player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/Hud.tscn" id="3_hud"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/PauseMenu.tscn" id="4_pause_menu"]
+[ext_resource type="Script" path="res://Scripts/Debug/GameAutopilot.cs" id="5_autopilot"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/EndScreen.tscn" id="6_end_screen"]
+[ext_resource type="Script" path="res://Scripts/Debug/ScreenshotCapture.cs" id="7_screenshot"]
+[ext_resource type="Script" path="res://Scripts/Debug/FrameTelemetry.cs" id="8_telemetry"]
+
+[node name="Main" type="Node3D"]
+
+[node name="RoomLoader" type="Node" parent="."]
+script = ExtResource("1_room_loader")
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+
+[node name="Hud" parent="." instance=ExtResource("3_hud")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_pause_menu")]
+
+[node name="EndScreen" parent="." instance=ExtResource("6_end_screen")]
+
+[node name="GameAutopilot" type="Node" parent="."]
+script = ExtResource("5_autopilot")
+
+[node name="ScreenshotCapture" type="Node" parent="."]
+script = ExtResource("7_screenshot")
+
+[node name="FrameTelemetry" type="Node" parent="."]
+script = ExtResource("8_telemetry")

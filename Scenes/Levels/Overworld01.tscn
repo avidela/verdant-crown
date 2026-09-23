@@ -1,0 +1,267 @@
+[gd_scene load_steps=29 format=3]
+
+[ext_resource type="PackedScene" path="res://Scenes/Prefabs/EnemyBody.tscn" id="1_enemy"]
+[ext_resource type="Script" path="res://Scripts/World/HeartPickup.cs" id="2_heart"]
+[ext_resource type="PackedScene" path="res://Assets/Models/glb/heart_pickup.glb" id="3_heart_glb"]
+
+[sub_resource type="StandardMaterial3D" id="Material_wall_stone"]
+shading_mode = 0
+albedo_color = Color(0.6, 0.57, 0.52, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Material_floor_grass"]
+shading_mode = 0
+albedo_color = Color(0.33, 0.55, 0.25, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Material_arch_wood"]
+shading_mode = 0
+albedo_color = Color(0.25, 0.18, 0.12, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Material_pillar_stone"]
+shading_mode = 0
+albedo_color = Color(0.55, 0.52, 0.47, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Material_rock"]
+shading_mode = 0
+albedo_color = Color(0.4, 0.4, 0.42, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Material_heart"]
+shading_mode = 0
+albedo_color = Color(0.85, 0.15, 0.2, 1)
+roughness = 0.6
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
+size = Vector3(30, 0.2, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_floor"]
+material = SubResource("Material_floor_grass")
+size = Vector3(30, 0.2, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_ns"]
+size = Vector3(31, 3, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall_ns"]
+material = SubResource("Material_wall_stone")
+size = Vector3(31, 3, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_ew"]
+size = Vector3(0.5, 3, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall_ew"]
+material = SubResource("Material_wall_stone")
+size = Vector3(0.5, 3, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_ns_seg"]
+size = Vector3(14.3, 3, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall_ns_seg"]
+material = SubResource("Material_wall_stone")
+size = Vector3(14.3, 3, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_header"]
+size = Vector3(2.4, 0.4, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall_header"]
+material = SubResource("Material_wall_stone")
+size = Vector3(2.4, 0.4, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rock"]
+size = Vector3(2, 1.5, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rock"]
+material = SubResource("Material_rock")
+size = Vector3(2, 1.5, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gate"]
+size = Vector3(2.4, 2.6, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pillar"]
+size = Vector3(0.5, 2, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pillar"]
+material = SubResource("Material_pillar_stone")
+size = Vector3(0.5, 2, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lintel"]
+size = Vector3(2.5, 0.5, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lintel"]
+material = SubResource("Material_arch_wood")
+size = Vector3(2.5, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_heart"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_heart"]
+material = SubResource("Material_heart")
+size = Vector3(0.4, 0.4, 0.4)
+
+[node name="Overworld01" type="Node3D"]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_floor")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_floor")
+
+[node name="WallSouth" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 15.25)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallSouth"]
+shape = SubResource("BoxShape3D_wall_ns")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WallSouth"]
+mesh = SubResource("BoxMesh_wall_ns")
+
+[node name="WallNorth" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -15.25)
+
+[node name="CollisionShape3D_SegL" type="CollisionShape3D" parent="WallNorth"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.35, 0, 0)
+shape = SubResource("BoxShape3D_wall_ns_seg")
+
+[node name="MeshInstance3D_SegL" type="MeshInstance3D" parent="WallNorth"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.35, 0, 0)
+mesh = SubResource("BoxMesh_wall_ns_seg")
+
+[node name="CollisionShape3D_SegR" type="CollisionShape3D" parent="WallNorth"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.35, 0, 0)
+shape = SubResource("BoxShape3D_wall_ns_seg")
+
+[node name="MeshInstance3D_SegR" type="MeshInstance3D" parent="WallNorth"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.35, 0, 0)
+mesh = SubResource("BoxMesh_wall_ns_seg")
+
+[node name="CollisionShape3D_Header" type="CollisionShape3D" parent="WallNorth"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+shape = SubResource("BoxShape3D_wall_header")
+
+[node name="MeshInstance3D_Header" type="MeshInstance3D" parent="WallNorth"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+mesh = SubResource("BoxMesh_wall_header")
+
+[node name="WallEast" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.25, 1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallEast"]
+shape = SubResource("BoxShape3D_wall_ew")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WallEast"]
+mesh = SubResource("BoxMesh_wall_ew")
+
+[node name="WallWest" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.25, 1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallWest"]
+shape = SubResource("BoxShape3D_wall_ew")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WallWest"]
+mesh = SubResource("BoxMesh_wall_ew")
+
+[node name="Rocks" type="Node3D" parent="."]
+
+[node name="Rock1" type="StaticBody3D" parent="Rocks"]
+transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1.2, -8, 0.75, -6)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Rocks/Rock1"]
+shape = SubResource("BoxShape3D_rock")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Rocks/Rock1"]
+mesh = SubResource("BoxMesh_rock")
+
+[node name="Rock2" type="StaticBody3D" parent="Rocks"]
+transform = Transform3D(1, 0, 0, 0, 1.4, 0, 0, 0, 1, 9, 1.05, -9)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Rocks/Rock2"]
+shape = SubResource("BoxShape3D_rock")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Rocks/Rock2"]
+mesh = SubResource("BoxMesh_rock")
+
+[node name="Rock3" type="StaticBody3D" parent="Rocks"]
+transform = Transform3D(2, 0, 0, 0, 0.8, 0, 0, 0, 1.5, -10, 0.6, 6)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Rocks/Rock3"]
+shape = SubResource("BoxShape3D_rock")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Rocks/Rock3"]
+mesh = SubResource("BoxMesh_rock")
+
+[node name="Rock4" type="StaticBody3D" parent="Rocks"]
+transform = Transform3D(0.8, 0, 0, 0, 1.2, 0, 0, 0, 0.8, 5, 0.9, -3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Rocks/Rock4"]
+shape = SubResource("BoxShape3D_rock")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Rocks/Rock4"]
+mesh = SubResource("BoxMesh_rock")
+
+[node name="Dungeon01Entrance" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14.6)
+
+[node name="PillarL" type="StaticBody3D" parent="Dungeon01Entrance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dungeon01Entrance/PillarL"]
+shape = SubResource("BoxShape3D_pillar")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Dungeon01Entrance/PillarL"]
+mesh = SubResource("BoxMesh_pillar")
+
+[node name="PillarR" type="StaticBody3D" parent="Dungeon01Entrance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dungeon01Entrance/PillarR"]
+shape = SubResource("BoxShape3D_pillar")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Dungeon01Entrance/PillarR"]
+mesh = SubResource("BoxMesh_pillar")
+
+[node name="Lintel" type="StaticBody3D" parent="Dungeon01Entrance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dungeon01Entrance/Lintel"]
+shape = SubResource("BoxShape3D_lintel")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Dungeon01Entrance/Lintel"]
+mesh = SubResource("BoxMesh_lintel")
+
+[node name="DoorGate" type="StaticBody3D" parent="Dungeon01Entrance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -0.65)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dungeon01Entrance/DoorGate"]
+shape = SubResource("BoxShape3D_gate")
+
+[node name="PlayerStart" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 8)
+
+[node name="heart" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.2, -12.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="heart"]
+shape = SubResource("BoxShape3D_heart")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="heart"]
+visible = false
+mesh = SubResource("BoxMesh_heart")
+
+[node name="Pickup" type="Node3D" parent="heart"]
+script = ExtResource("2_heart")
+
+[node name="HeartModel" parent="heart" instance=ExtResource("3_heart_glb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Slime1" parent="Enemies" instance=ExtResource("1_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.5, -4)
+
+[node name="Slime2" parent="Enemies" instance=ExtResource("1_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.5, 4)

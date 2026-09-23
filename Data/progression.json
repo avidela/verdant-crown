@@ -1,0 +1,81 @@
+{
+  "version": "1.0",
+  "notes": "Win/lose conditions and the clear-flag chain for the vertical slice. Clear flags are set when a room's enemies are all defeated (per rooms.json locked_by). Expected pacing: ~10-15 minutes end to end for a first-time player.",
+  "win_condition": {
+    "id": "collect_crown_fragment",
+    "item_id": "crown_fragment",
+    "room_id": "dungeon_05",
+    "requires": [
+      "boss_guardian_defeated",
+      "item_crown_fragment_collected"
+    ],
+    "result_state": "Victory",
+    "notes": "The crown_fragment spawns in dungeon_05 only after the boss_guardian is dead (rooms.json items condition boss_defeated). Picking it up transitions the game to the Victory state."
+  },
+  "lose_condition": {
+    "id": "player_hp_depleted",
+    "stat": "hp",
+    "equals": 0,
+    "notes": "hp_max reached 0 (hp <= 0) transitions the game to the GameOver state. hp_max is 6 per player.json.",
+    "result_state": "GameOver"
+  },
+  "clear_flags": [
+    {
+      "flag": "overworld_01_cleared",
+      "set_when": "all enemies in overworld_01 defeated",
+      "unlocks": [
+        "dungeon_01"
+      ],
+      "notes": "Informational only — dungeon_01 is open from the start (locked_by null)."
+    },
+    {
+      "flag": "dungeon_01_cleared",
+      "set_when": "all enemies in dungeon_01 defeated",
+      "unlocks": [
+        "dungeon_02"
+      ],
+      "notes": "First real gate: slimes must fall before the chain advances."
+    },
+    {
+      "flag": "dungeon_02_cleared",
+      "set_when": "all enemies in dungeon_02 defeated",
+      "unlocks": [
+        "dungeon_03"
+      ],
+      "notes": "Opens the midpoint room."
+    },
+    {
+      "flag": "dungeon_03_cleared",
+      "set_when": "all enemies in dungeon_03 defeated",
+      "unlocks": [
+        "dungeon_04",
+        "dungeon_05"
+      ],
+      "notes": "Boss route gate: per design this single flag unlocks BOTH dungeon_04 and dungeon_05. The temple_key item from dungeon_03 is separately required for the boss arena door inside dungeon_05."
+    },
+    {
+      "flag": "dungeon_04_cleared",
+      "set_when": "all enemies in dungeon_04 defeated",
+      "unlocks": [],
+      "notes": "No downstream gate — dungeon_05 already opened on dungeon_03_cleared. Flag kept for telemetry/telemetry-style room-clear stats."
+    },
+    {
+      "flag": "boss_guardian_defeated",
+      "set_when": "boss_guardian hp reaches 0 in dungeon_05",
+      "unlocks": [
+        "crown_fragment_spawn"
+      ],
+      "notes": "Spawns the collectable crown_fragment; collecting it sets the Victory state."
+    }
+  ],
+  "required_sequence": [
+    "clear overworld_01 tutorial slimes",
+    "enter dungeon_01, clear, open dungeon_02",
+    "clear dungeon_02 (slimes + skeletons), open dungeon_03",
+    "clear dungeon_03, collect temple_key, set dungeon_03_cleared (unlocks dungeon_04 and dungeon_05)",
+    "clear dungeon_04, enter dungeon_05",
+    "use temple_key on boss arena door, defeat boss_guardian (phase 2 at 50% hp spawns 1 slime once)",
+    "collect crown_fragment -> Victory"
+  ],
+  "notes_balance": "Enemy counts: 11 slimes + 8 skeletons + 1 boss (+1 phase-2 slime) across 6 rooms. Slime = 2 sword swings, skeleton = 4, boss = 15. Three heart pickups plus the starting 6 hp cushion the 1-2 damage hits. Tuned for a ~10-15 minute first clear."
+}

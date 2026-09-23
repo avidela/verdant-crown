@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gameList>
+  <game>
+    <path>./Verdant Crown.sh</path>
+    <name>Verdant Crown</name>
+    <desc>Overworld action-adventure for the RK3326 handheld: explore a verdant overworld, delve ruined temples with sword and dodge, beat the boss and reclaim the crown. One hub, five dungeon rooms and a boss, winnable end to end in about 10-15 minutes. Unshaded low-poly 3D, top-down camera.</desc>
+    <releasedate>20260922T000000</releasedate>
+    <developer>avidela</developer>
+    <publisher>PortMaster</publisher>
+    <genre>Action</genre>
+    <image>./verdant-crown/screenshot.png</image>
+  </game>
+</gameList>

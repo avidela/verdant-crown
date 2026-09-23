@@ -1,0 +1,33 @@
+{
+  "version": 4,
+  "name": "verdant-crown.zip",
+  "items": [
+    "Verdant Crown.sh",
+    "verdant-crown"
+  ],
+  "items_opt": [],
+  "attr": {
+    "title": "Verdant Crown",
+    "porter": [
+      "avidela"
+    ],
+    "desc": "Overworld action-adventure for the RK3326 handheld: explore a verdant overworld, delve ruined temples with sword and dodge, beat the boss and reclaim the crown. A winnable 10-15 minute vertical slice - one hub, five dungeon rooms, one boss - in unshaded low-poly 3D with a top-down camera.",
+    "desc_md": null,
+    "inst": "Ready to run out of the box, no additional files needed.",
+    "inst_md": null,
+    "genres": [
+      "Action"
+    ],
+    "image": null,
+    "rtr": false,
+    "exp": false,
+    "runtime": [],
+    "store": [],
+    "availability": "full",
+    "reqs": [],
+    "arch": [
+      "aarch64"
+    ],
+    "min_glibc": "2.28"
+  }
+}

@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/UI/PauseMenu.cs" id="1_pause_menu"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+visible = false
+process_mode = 3
+script = ExtResource("1_pause_menu")
+
+[node name="Center" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Layout" type="VBoxContainer" parent="Center/Panel"]
+theme_override_constants/separation = 12
+
+[node name="PausedLabel" type="Label" parent="Center/Panel/Layout"]
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 32
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Center/Panel/Layout"]
+custom_minimum_size = Vector2(240, 56)
+theme_override_font_sizes/font_size = 24
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="Center/Panel/Layout"]
+custom_minimum_size = Vector2(240, 56)
+theme_override_font_sizes/font_size = 24
+text = "Quit to Menu"

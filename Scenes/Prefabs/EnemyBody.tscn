@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Combat/EnemyBrain.cs" id="1_brain"]
+[ext_resource type="Script" path="res://Scripts/Combat/EnemyMotion.cs" id="2_motion"]
+
+[sub_resource type="StandardMaterial3D" id="Material_grey"]
+albedo_color = Color(0.5, 0.5, 0.5, 1)
+roughness = 0.9
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_body"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_body"]
+material = SubResource("Material_grey")
+size = Vector3(1, 1, 1)
+
+[node name="EnemyBody" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_brain")
+EnemyId = "slime"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_body")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_body")
+script = ExtResource("2_motion")

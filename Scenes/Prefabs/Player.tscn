@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://Scripts/World/PlayerController.cs" id="1_player"]
+[ext_resource type="Script" path="res://Scripts/Combat/SwordHitbox.cs" id="2_sword"]
+[ext_resource type="Script" path="res://Scripts/World/PlayerHealth.cs" id="3_health"]
+[ext_resource type="PackedScene" uid="uid://o4vdbc6tqafo" path="res://Assets/Models/glb/hero.glb" id="4_hero"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 0.3
+height = 1.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sword"]
+size = Vector3(0.1, 0.1, 0.8)
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+script = ExtResource("1_player")
+collision_layer = 1
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="Hero" parent="MeshInstance3D" instance=ExtResource("4_hero")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6427876097, 0.7660444431, 0, -0.7660444431, 0.6427876097, 0, 8, 6)
+current = true
+
+[node name="Sword" type="Area3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_sword")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Sword"]
+shape = SubResource("BoxShape3D_sword")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/Sword"]
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("3_health")

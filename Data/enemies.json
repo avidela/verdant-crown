@@ -1,0 +1,58 @@
+{
+  "version": "1.0",
+  "notes": "Verdant Crown enemy roster for the vertical slice. Damage values are flat hits per successful contact or swing; sword_damage 1 (see player.json) means slime=2 swings, skeleton=4 swings, boss_guardian=15 swings before phase bonuses. speed_mps values are ground speeds on the XZ plane and stay below the player's move_speed_mps 5.0 so the player can always disengage.",
+  "enemies": [
+    {
+      "id": "slime",
+      "name": "Slime",
+      "hp": 2,
+      "damage": 1,
+      "speed_mps": 1.5,
+      "aggro_range_m": 4.0,
+      "behavior": "wander",
+      "notes": "Slow wandering fodder. Wanders its home area until the player enters aggro_range_m, then slowly pursues. Contact damage 1. Two sword swings to kill. Teach-check for the attack button in overworld_01."
+    },
+    {
+      "id": "skeleton",
+      "name": "Skeleton",
+      "hp": 4,
+      "damage": 1,
+      "speed_mps": 3.5,
+      "aggro_range_m": 8.0,
+      "behavior": "charge_player",
+      "notes": "Faster than the slime and the first real threat. Patrols until aggro, then winds up and charges the player in a straight line — dodge_burst_mps 12 is the intended counter. Four sword swings to kill, contact damage 1."
+    },
+    {
+      "id": "boss_guardian",
+      "name": "Crown Guardian",
+      "hp": 15,
+      "damage": 2,
+      "speed_mps": 1.8,
+      "aggro_range_m": 10.0,
+      "behavior": "boss_swing",
+      "notes": "Dungeon_05 boss. Slow deliberate telegraphed swings (damage 2 = two player hearts per hit) in phase 1. At 50% HP enters phase 2 exactly once: faster movement, still damage 2, and spawns 1 slime to split the player's attention. 15 total HP at 1 dmg/swing keeps the fight roughly 60-90 seconds for a cautious player.",
+      "phases": [
+        {
+          "phase": 1,
+          "hp_threshold_percent": 100,
+          "speed_mps": 1.8,
+          "behavior": "boss_swing",
+          "notes": "Slow wind-up swings, big telegraph window. Default state on aggro."
+        },
+        {
+          "phase": 2,
+          "hp_threshold_percent": 50,
+          "speed_mps": 3.0,
+          "behavior": "boss_swing_aggressive",
+          "on_phase_change": "spawn",
+          "spawn": {
+            "id": "slime",
+            "count": 1,
+            "once": true
+          },
+          "notes": "Triggers once when hp drops to or below 50% (hp <= 7). Movement speed nearly doubles; spawns exactly one slime a single time. Do not re-trigger on subsequent damage."
+        }
+      ]
+    }
+  ]
+}

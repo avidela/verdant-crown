@@ -1,0 +1,30 @@
+# Verdant Crown on R36S: one input path per class.
+# A/B/Start/L1 and d-pad -> keyboard J/K/Escape/F3 and arrows via gptokeyb.
+# Left stick axes -> Godot native joystick InputMap (the mapping below also provides
+# a keyboard fallback; two movement sources map to the same move action).
+# A device kernel swapped face-button labels relative to native XBox indices;
+# binding face buttons natively *and* here made one press fire two actions.
+# Select+Start is gptokeyb's quit hotkey. Right-stick camera is not wired.
+# No cursor: this game is controlled entirely by the pad.
+left_analog_up = up
+left_analog_down = down
+left_analog_left = left
+left_analog_right = right
+left_analog_up = repeat
+left_analog_down = repeat
+left_analog_left = repeat
+left_analog_right = repeat
+
+up = up
+down = down
+left = left
+right = right
+up = repeat
+down = repeat
+left = repeat
+right = repeat
+
+a = j
+l1 = f3
+b = k
+start = escape

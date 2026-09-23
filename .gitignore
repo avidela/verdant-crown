@@ -1,0 +1,16 @@
+bin/
+obj/
+*.csproj.DotSettings
+*.sln.DotSettings
+/.godot/
+logs/*.log
+build/
+build451/
+# Port payload = GENERATED (deploy-r36s.sh exports into build451/; install-port.sh stages it
+# into the install tree). Never versioned — same class as build451/ itself (ticket #21).
+ports/verdant-crown-install/verdant-crown/data_*/
+ports/verdant-crown-install/verdant-crown/verdant-crown.arm64
+ports/verdant-crown-install/verdant-crown/verdant-crown.pck
+ports/verdant-crown-install/verdant-crown/log.txt
+ports/verdant-crown-install/verdant-crown/log-*.txt
+ports/verdant-crown-install/verdant-crown/conf/
